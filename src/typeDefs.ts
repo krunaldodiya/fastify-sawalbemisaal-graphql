@@ -7,6 +7,7 @@ export const typeDefs = gql`
 
   type Mutation {
     addQueue(language_id: ID!): Language!
+    getToken: String!
   }
 
   type Subscription {

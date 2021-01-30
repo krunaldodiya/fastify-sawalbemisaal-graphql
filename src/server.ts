@@ -1,21 +1,63 @@
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import Fastify, { FastifyInstance } from 'fastify'
-import { Server, IncomingMessage, ServerResponse } from 'http'
+import fastifyJWT from 'fastify-jwt'
+import { applyMiddleware } from 'graphql-middleware'
+import { rule, shield } from 'graphql-shield'
+import { IncomingMessage, Server, ServerResponse } from 'http'
 import mercurius from 'mercurius'
 import { resolvers } from './resolvers'
 import { typeDefs } from './typeDefs'
 
-const server: FastifyInstance<
+export const server: FastifyInstance<
   Server,
   IncomingMessage,
   ServerResponse
 > = Fastify({})
 
+const getUser = async (req) => {
+  try {
+    const token = await req.jwtVerify()
+
+    return token
+  } catch (error) {
+    return null
+  }
+}
+
+const isAuthenticated = rule({ cache: 'contextual' })(
+  async (parent, args, ctx, info) => {
+    return ctx.user !== null
+  },
+)
+
+const permissions = shield({
+  Query: {
+    languages: isAuthenticated,
+  },
+  Mutation: {
+    addQueue: isAuthenticated,
+  },
+})
+
+const schema = makeExecutableSchema({ typeDefs, resolvers })
+
+const schemaWithMiddleware = applyMiddleware(schema, permissions)
+
+server.register(fastifyJWT, {
+  secret: process.env.JWT_SECRET,
+})
+
 server.register(mercurius, {
-  schema: makeExecutableSchema({ typeDefs, resolvers }),
+  schema: schemaWithMiddleware,
+  context: async (req) => {
+    const user = await getUser(req)
+    return { ...req, user }
+  },
   graphiql: 'playground',
   subscription: true,
 })
+
+// server.addHook('onRequest', (request) => request.jwtVerify())
 
 const start = async () => {
   try {

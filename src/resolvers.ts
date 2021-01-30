@@ -1,4 +1,5 @@
 import { prisma } from './libs/helpers'
+import { server } from './server'
 
 export const resolvers = {
   Query: {
@@ -8,6 +9,12 @@ export const resolvers = {
   },
 
   Mutation: {
+    getToken: async (_, args, context) => {
+      const token = server.jwt.sign({})
+
+      return token
+    },
+
     addQueue: async (_, { language_id }, { pubsub }) => {
       // videoQueue.add({ pubsub, language_id }, { delay: 2000 })
 
