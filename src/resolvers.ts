@@ -1,4 +1,5 @@
 import { prisma } from './libs/helpers'
+import { videoQueue } from './queues/video'
 import { server } from './server'
 
 export const resolvers = {
@@ -16,20 +17,13 @@ export const resolvers = {
     },
 
     addQueue: async (_, { language_id }, { pubsub }) => {
-      // videoQueue.add({ pubsub, language_id }, { delay: 2000 })
-
       const language = await prisma.language.findFirst({
         where: {
           id: language_id,
         },
       })
 
-      pubsub.publish({
-        topic: 'QUEUE_ADDED',
-        payload: {
-          onQueueAdded: language,
-        },
-      })
+      videoQueue.add({ language }, { delay: 2000 })
 
       return language
     },
