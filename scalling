@@ -1,0 +1,9 @@
+websocket server
+queue server
+cronjob server
+cache server
+load balance server 1
+load balance server 2
+load balancer
+database server (RDS)
+assets server (S3)
