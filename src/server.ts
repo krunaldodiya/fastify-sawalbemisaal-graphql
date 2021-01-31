@@ -3,7 +3,7 @@ import fastifyJWT from 'fastify-jwt'
 import { IncomingMessage, Server, ServerResponse } from 'http'
 import mercurius from 'mercurius'
 import { createContext } from './context'
-import { schema } from './schema'
+import { schemaWithMiddleware } from './schema'
 
 export const server: FastifyInstance<
   Server,
@@ -16,7 +16,7 @@ server.register(fastifyJWT, {
 })
 
 server.register(mercurius, {
-  schema,
+  schema: schemaWithMiddleware,
   context: createContext,
   graphiql: 'playground',
   subscription: true,

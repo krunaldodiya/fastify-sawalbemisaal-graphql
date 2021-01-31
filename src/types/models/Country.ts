@@ -1,7 +1,7 @@
-import { objectType } from 'nexus'
+import { extendType } from 'nexus'
 
-export const Country = objectType({
-  name: 'Country',
+export const Country = extendType({
+  type: 'Country',
   definition(t) {
     t.model.id()
     t.model.name()
