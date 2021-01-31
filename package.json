@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f .env node dist/server",
+    "start": "node dist/server",
     "clean": "rm -rf dist",
-    "build": "env-cmd -f .env npm -s run clean && npm -s run generate && tsc",
+    "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
-    "generate:prisma": "env-cmd -f .env prisma generate",
-    "generate:nexus": "env-cmd -f .env ts-node --transpile-only src/schema",
-    "dev": "env-cmd -f .env ts-node-dev --no-notify --respawn --transpile-only src/server"
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only src/schema",
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "keywords": [],
   "author": "",
@@ -35,7 +35,6 @@
     "@types/bull": "^3.15.0",
     "@types/node": "^14.14.22",
     "@types/node-fetch": "^2.5.8",
-    "env-cmd": "^10.1.0",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3"
@@ -44,8 +43,5 @@
     "singleQuote": true,
     "semi": false,
     "trailingComma": "all"
-  },
-  "engines": {
-    "node": ">=10.0.0"
   }
 }
