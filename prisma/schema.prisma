@@ -12,7 +12,18 @@ model Language {
   name       String
   nickname   String
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime @default(now()) @updatedAt
 
   @@map("languages")
+}
+
+model Country {
+  id         String   @id @default(uuid())
+  name       String
+  shortname  String
+  phonecode  String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("countries")
 }

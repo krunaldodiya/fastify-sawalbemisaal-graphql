@@ -2,9 +2,9 @@ import { makeExecutableSchema } from '@graphql-tools/schema'
 import Fastify, { FastifyInstance } from 'fastify'
 import fastifyJWT from 'fastify-jwt'
 import { applyMiddleware } from 'graphql-middleware'
-import { rule, shield } from 'graphql-shield'
 import { IncomingMessage, Server, ServerResponse } from 'http'
 import mercurius from 'mercurius'
+import { permissions } from './permissions'
 import { resolvers } from './resolvers'
 import { typeDefs } from './typeDefs'
 
@@ -24,27 +24,12 @@ const getUser = async (req) => {
   }
 }
 
-const isAuthenticated = rule({ cache: 'contextual' })(
-  async (parent, args, ctx, info) => {
-    return ctx.user !== null
-  },
-)
-
-const permissions = shield({
-  Query: {
-    languages: isAuthenticated,
-  },
-  Mutation: {
-    addQueue: isAuthenticated,
-  },
-})
-
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 const schemaWithMiddleware = applyMiddleware(schema, permissions)
 
 server.register(fastifyJWT, {
-  secret: process.env.JWT_SECRET,
+  secret: process.env.JWT_SECRET || 'secret',
 })
 
 server.register(mercurius, {
@@ -56,8 +41,6 @@ server.register(mercurius, {
   graphiql: 'playground',
   subscription: true,
 })
-
-// server.addHook('onRequest', (request) => request.jwtVerify())
 
 const start = async () => {
   try {
