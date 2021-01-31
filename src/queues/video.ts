@@ -1,5 +1,4 @@
 import Queue from 'bull'
-import { prisma } from '../libs/helpers'
 import { server } from '../server'
 
 export const videoQueue = new Queue('Video Transcoding', {
