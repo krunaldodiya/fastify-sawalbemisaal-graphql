@@ -4,7 +4,9 @@ import { nexusPrisma } from 'nexus-plugin-prisma'
 import { permissions } from './permissions'
 import { Country } from './types/models/Country'
 import { Language } from './types/models/Language'
-import { Mutation } from './types/Mutation'
+import { addQueue } from './types/mutations/addQueue'
+import { requestOtp } from './types/mutations/requestOtp'
+import { verifyOtp } from './types/mutations/verifyOtp'
 import { getCountries } from './types/queries/getCountries'
 import { getLanguages } from './types/queries/getLanguages'
 import { me } from './types/queries/me'
@@ -12,13 +14,15 @@ import { Subscription } from './types/Subscription'
 
 export const schema = makeSchema({
   types: [
-    Mutation,
     Subscription,
     Country,
     Language,
     me,
     getLanguages,
     getCountries,
+    addQueue,
+    requestOtp,
+    verifyOtp,
   ],
   plugins: [nexusPrisma()],
   outputs: {
