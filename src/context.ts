@@ -5,9 +5,9 @@ import { getUser } from './libs/helpers'
 export const prisma = new PrismaClient()
 
 export interface Context {
+  user: any
   request: FastifyRequest
   reply: FastifyReply
-  user: any
   prisma: PrismaClient
 }
 
@@ -18,9 +18,9 @@ export const createContext = async (
   const user = await getUser(request)
 
   return {
+    user,
     request,
     reply,
-    user,
     prisma,
   }
 }
