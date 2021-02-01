@@ -34,6 +34,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthPayload: { // root type
+    token?: string | null; // String
+    user?: NexusGenRootTypes['User'] | null; // User
+  }
   Country: { // root type
     created_at: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
@@ -53,13 +57,16 @@ export interface NexusGenObjects {
   Query: {};
   Subscription: {};
   User: { // root type
+    country?: NexusGenRootTypes['Country'] | null; // Country
+    country_id: string; // String!
     created_at: NexusGenScalars['DateTime']; // DateTime!
-    email: string; // String!
+    email?: string | null; // String
     id: string; // String!
-    name: string; // String!
-    password: string; // String!
+    mobile: string; // String!
+    name?: string | null; // String
+    password?: string | null; // String
     updated_at: NexusGenScalars['DateTime']; // DateTime!
-    username: string; // String!
+    username?: string | null; // String
   }
 }
 
@@ -74,6 +81,10 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AuthPayload: { // field return type
+    token: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Country: { // field return type
     created_at: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
@@ -92,28 +103,35 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addQueue: NexusGenRootTypes['Language'] | null; // Language
     requestOtp: string | null; // String
-    verifyOtp: string | null; // String
+    verifyOtp: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
   }
   Query: { // field return type
-    countries: Array<NexusGenRootTypes['Country'] | null> | null; // [Country]
-    languages: Array<NexusGenRootTypes['Language'] | null> | null; // [Language]
-    me: string | null; // String
+    countries: NexusGenRootTypes['Country'] | null; // Country
+    languages: NexusGenRootTypes['Language'] | null; // Language
+    me: NexusGenRootTypes['User'] | null; // User
   }
   Subscription: { // field return type
     onQueueAdded: NexusGenRootTypes['Language'] | null; // Language
   }
   User: { // field return type
+    country: NexusGenRootTypes['Country'] | null; // Country
+    country_id: string; // String!
     created_at: NexusGenScalars['DateTime']; // DateTime!
-    email: string; // String!
+    email: string | null; // String
     id: string; // String!
-    name: string; // String!
-    password: string; // String!
+    mobile: string; // String!
+    name: string | null; // String
+    password: string | null; // String
     updated_at: NexusGenScalars['DateTime']; // DateTime!
-    username: string; // String!
+    username: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthPayload: { // field return type name
+    token: 'String'
+    user: 'User'
+  }
   Country: { // field return type name
     created_at: 'DateTime'
     id: 'String'
@@ -132,20 +150,23 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addQueue: 'Language'
     requestOtp: 'String'
-    verifyOtp: 'String'
+    verifyOtp: 'AuthPayload'
   }
   Query: { // field return type name
     countries: 'Country'
     languages: 'Language'
-    me: 'String'
+    me: 'User'
   }
   Subscription: { // field return type name
     onQueueAdded: 'Language'
   }
   User: { // field return type name
+    country: 'Country'
+    country_id: 'String'
     created_at: 'DateTime'
     email: 'String'
     id: 'String'
+    mobile: 'String'
     name: 'String'
     password: 'String'
     updated_at: 'DateTime'
@@ -159,11 +180,13 @@ export interface NexusGenArgTypes {
       language_id: string; // ID!
     }
     requestOtp: { // args
-      mobile?: string | null; // String
+      country_id: string; // ID!
+      mobile: string; // String!
     }
     verifyOtp: { // args
-      mobile?: string | null; // String
-      otp?: string | null; // String
+      country_id: string; // ID!
+      mobile: string; // String!
+      otp: string; // String!
     }
   }
 }

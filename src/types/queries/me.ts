@@ -1,13 +1,8 @@
-import { extendType } from 'nexus'
+import { queryField } from 'nexus'
 
-export const me = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nullable.field('me', {
-      type: 'String',
-      resolve: (parent, args, ctx) => {
-        return 'krunal'
-      },
-    })
+export const me = queryField('me', {
+  type: 'User',
+  resolve: (parent, args, { prisma, user }) => {
+    return prisma.user.findFirst({ where: { id: user.id } })
   },
 })

@@ -2,6 +2,11 @@
 ### Do not make changes to this file directly
 
 
+type AuthPayload {
+  token: String
+  user: User
+}
+
 type Country {
   created_at: DateTime!
   id: String!
@@ -23,14 +28,14 @@ type Language {
 
 type Mutation {
   addQueue(language_id: ID!): Language
-  requestOtp(mobile: String): String
-  verifyOtp(mobile: String, otp: String): String
+  requestOtp(country_id: ID!, mobile: String!): String
+  verifyOtp(country_id: ID!, mobile: String!, otp: String!): AuthPayload
 }
 
 type Query {
-  countries: [Country]
-  languages: [Language]
-  me: String
+  countries: Country
+  languages: Language
+  me: User
 }
 
 type Subscription {
@@ -38,11 +43,14 @@ type Subscription {
 }
 
 type User {
+  country: Country
+  country_id: String!
   created_at: DateTime!
-  email: String!
+  email: String
   id: String!
-  name: String!
-  password: String!
+  mobile: String!
+  name: String
+  password: String
   updated_at: DateTime!
-  username: String!
+  username: String
 }

@@ -8,6 +8,7 @@ import { User } from './types/models/User'
 import { addQueue } from './types/mutations/addQueue'
 import { requestOtp } from './types/mutations/requestOtp'
 import { verifyOtp } from './types/mutations/verifyOtp'
+import { AuthPayload } from './types/payloads/auth'
 import { getCountries } from './types/queries/getCountries'
 import { getLanguages } from './types/queries/getLanguages'
 import { me } from './types/queries/me'
@@ -15,6 +16,7 @@ import { onQueueAdded } from './types/Subscription'
 
 export const schema = makeSchema({
   types: [
+    AuthPayload,
     User,
     Country,
     Language,

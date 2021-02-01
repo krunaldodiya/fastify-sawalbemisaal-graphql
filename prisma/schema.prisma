@@ -9,10 +9,13 @@ generator client {
 
 model User {
   id         String   @id @default(uuid())
-  name       String
-  username   String
-  email      String
-  password   String
+  country_id String
+  mobile     String   @unique
+  name       String?
+  username   String?  @unique
+  email      String?  @unique
+  password   String?
+  country    Country  @relation(fields: [country_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
@@ -37,5 +40,6 @@ model Country {
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
+  User User[]
   @@map("countries")
 }

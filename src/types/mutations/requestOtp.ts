@@ -1,18 +1,22 @@
 import axios from 'axios'
-import { mutationField, stringArg } from 'nexus'
+import { idArg, mutationField, nonNull, stringArg } from 'nexus'
 import { URLSearchParams } from 'url'
 
 const otp = (Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000).toString()
 
 export const requestOtp = mutationField('requestOtp', {
   type: 'String',
-  args: { mobile: stringArg() },
-  resolve: async (parent, { mobile }, { reply }) => {
+  args: { country_id: nonNull(idArg()), mobile: nonNull(stringArg()) },
+  resolve: async (parent, { country_id, mobile }, { reply, prisma }) => {
     try {
+      const country = await prisma.country.findFirst({
+        where: { id: country_id },
+      })
+
       const params = new URLSearchParams({
         authkey: process.env.MSG91_KEY,
         template_id: process.env.MSG91_TEMPLATE_ID,
-        mobile: mobile ?? '',
+        mobile: `${country?.phonecode}${mobile}`,
         otp,
         extra_param: JSON.stringify({
           OTP: otp,
