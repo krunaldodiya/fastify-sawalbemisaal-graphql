@@ -12,4 +12,6 @@ videoQueue.process(async (job, done) => {
     topic: 'QUEUE_ADDED',
     payload: language,
   })
+
+  done()
 })
