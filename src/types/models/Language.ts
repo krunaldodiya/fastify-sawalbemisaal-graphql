@@ -1,7 +1,7 @@
-import { extendType } from 'nexus'
+import { objectType } from 'nexus'
 
-export const Language = extendType({
-  type: 'Language',
+export const Language = objectType({
+  name: 'Language',
   definition(t) {
     t.model.id()
     t.model.name()

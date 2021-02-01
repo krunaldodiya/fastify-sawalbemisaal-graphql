@@ -36,3 +36,13 @@ type Query {
 type Subscription {
   onQueueAdded: Language
 }
+
+type User {
+  created_at: DateTime!
+  email: String!
+  id: String!
+  name: String!
+  password: String!
+  updated_at: DateTime!
+  username: String!
+}

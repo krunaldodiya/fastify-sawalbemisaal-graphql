@@ -52,6 +52,15 @@ export interface NexusGenObjects {
   Mutation: {};
   Query: {};
   Subscription: {};
+  User: { // root type
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    email: string; // String!
+    id: string; // String!
+    name: string; // String!
+    password: string; // String!
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+    username: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -93,6 +102,15 @@ export interface NexusGenFieldTypes {
   Subscription: { // field return type
     onQueueAdded: NexusGenRootTypes['Language'] | null; // Language
   }
+  User: { // field return type
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    email: string; // String!
+    id: string; // String!
+    name: string; // String!
+    password: string; // String!
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+    username: string; // String!
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -123,6 +141,15 @@ export interface NexusGenFieldTypeNames {
   }
   Subscription: { // field return type name
     onQueueAdded: 'Language'
+  }
+  User: { // field return type name
+    created_at: 'DateTime'
+    email: 'String'
+    id: 'String'
+    name: 'String'
+    password: 'String'
+    updated_at: 'DateTime'
+    username: 'String'
   }
 }
 

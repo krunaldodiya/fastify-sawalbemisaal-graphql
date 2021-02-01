@@ -1,12 +1,13 @@
 import { objectType } from 'nexus'
 
-export const Country = objectType({
-  name: 'Country',
+export const User = objectType({
+  name: 'User',
   definition(t) {
     t.model.id()
     t.model.name()
-    t.model.shortname()
-    t.model.phonecode()
+    t.model.username()
+    t.model.email()
+    t.model.password()
     t.model.created_at()
     t.model.updated_at()
   },

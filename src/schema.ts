@@ -4,6 +4,7 @@ import { nexusPrisma } from 'nexus-plugin-prisma'
 import { permissions } from './permissions'
 import { Country } from './types/models/Country'
 import { Language } from './types/models/Language'
+import { User } from './types/models/User'
 import { addQueue } from './types/mutations/addQueue'
 import { requestOtp } from './types/mutations/requestOtp'
 import { verifyOtp } from './types/mutations/verifyOtp'
@@ -14,6 +15,7 @@ import { onQueueAdded } from './types/Subscription'
 
 export const schema = makeSchema({
   types: [
+    User,
     Country,
     Language,
     me,
