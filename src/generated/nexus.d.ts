@@ -129,7 +129,7 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Mutation: {
     addQueue: { // args
-      language_id?: string | null; // ID
+      language_id: string; // ID!
     }
     requestOtp: { // args
       mobile?: string | null; // String

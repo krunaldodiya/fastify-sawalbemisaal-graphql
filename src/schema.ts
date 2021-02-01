@@ -10,11 +10,10 @@ import { verifyOtp } from './types/mutations/verifyOtp'
 import { getCountries } from './types/queries/getCountries'
 import { getLanguages } from './types/queries/getLanguages'
 import { me } from './types/queries/me'
-import { Subscription } from './types/Subscription'
+import { onQueueAdded } from './types/Subscription'
 
 export const schema = makeSchema({
   types: [
-    Subscription,
     Country,
     Language,
     me,
@@ -23,6 +22,7 @@ export const schema = makeSchema({
     addQueue,
     requestOtp,
     verifyOtp,
+    onQueueAdded,
   ],
   plugins: [nexusPrisma()],
   outputs: {

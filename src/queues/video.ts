@@ -10,8 +10,6 @@ videoQueue.process(async (job, done) => {
 
   server.graphql.pubsub.publish({
     topic: 'QUEUE_ADDED',
-    payload: {
-      onQueueAdded: language,
-    },
+    payload: language,
   })
 })

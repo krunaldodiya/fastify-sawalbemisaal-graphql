@@ -22,7 +22,7 @@ type Language {
 }
 
 type Mutation {
-  addQueue(language_id: ID): Language
+  addQueue(language_id: ID!): Language
   requestOtp(mobile: String): String
   verifyOtp(mobile: String, otp: String): String
 }
