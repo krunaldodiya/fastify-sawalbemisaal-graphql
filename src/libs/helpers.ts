@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import { FastifyRequest } from 'fastify'
 
-export const prisma = new PrismaClient()
-
-export const getUser = async (ctx) => {
+export const getUser = async (ctx: FastifyRequest) => {
   try {
     const token = await ctx.jwtVerify()
 

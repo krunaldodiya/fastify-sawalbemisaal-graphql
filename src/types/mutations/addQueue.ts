@@ -10,7 +10,7 @@ export const addQueue = extendType({
       resolve: async (parent, { language_id }, ctx) => {
         const language = await ctx.prisma.language.findFirst({
           where: {
-            id: language_id,
+            id: language_id ?? '',
           },
         })
 

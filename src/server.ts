@@ -18,6 +18,7 @@ server.register(fastifyJWT, {
 server.register(mercurius, {
   schema: schemaWithMiddleware,
   context: createContext,
+  path: '/',
   graphiql: 'playground',
   subscription: true,
 })
