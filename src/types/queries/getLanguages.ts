@@ -5,8 +5,8 @@ export const getLanguages = extendType({
   definition(t) {
     t.list.field('languages', {
       type: 'Language',
-      resolve: async (parent, args, ctx) => {
-        return await ctx.prisma.language.findMany()
+      resolve: async (parent, args, { prisma }) => {
+        return await prisma.language.findMany()
       },
     })
   },

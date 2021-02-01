@@ -5,8 +5,8 @@ export const getCountries = extendType({
   definition(t) {
     t.list.field('countries', {
       type: 'Country',
-      resolve: async (parent, args, ctx) => {
-        return await ctx.prisma.country.findMany()
+      resolve: async (parent, args, { prisma }) => {
+        return await prisma.country.findMany()
       },
     })
   },

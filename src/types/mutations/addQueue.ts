@@ -7,8 +7,8 @@ export const addQueue = extendType({
     t.nullable.field('addQueue', {
       type: 'Language',
       args: { language_id: idArg() },
-      resolve: async (parent, { language_id }, ctx) => {
-        const language = await ctx.prisma.language.findFirst({
+      resolve: async (parent, { language_id }, { prisma }) => {
+        const language = await prisma.language.findFirst({
           where: {
             id: language_id ?? '',
           },

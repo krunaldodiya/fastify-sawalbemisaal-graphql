@@ -1,19 +1,25 @@
 import { PrismaClient } from '@prisma/client'
-import { FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { getUser } from './libs/helpers'
 
 export const prisma = new PrismaClient()
 
-export interface DataMeta {
+export interface Context {
+  request: FastifyRequest
+  reply: FastifyReply
   user: any
   prisma: PrismaClient
 }
 
-export const createContext = async (ctx: FastifyRequest) => {
-  const user = await getUser(ctx)
+export const createContext = async (
+  request: FastifyRequest,
+  reply: FastifyReply,
+): Promise<Context> => {
+  const user = await getUser(request)
 
   return {
-    ...ctx,
+    request,
+    reply,
     user,
     prisma,
   }

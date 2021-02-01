@@ -1,8 +1,8 @@
 import { FastifyRequest } from 'fastify'
 
-export const getUser = async (ctx: FastifyRequest) => {
+export const getUser = async ({ jwtVerify }: FastifyRequest) => {
   try {
-    const token = await ctx.jwtVerify()
+    const token = await jwtVerify()
 
     return token
   } catch (error) {
