@@ -6,9 +6,11 @@ import { User } from './models/User'
 import { Wallet } from './models/Wallet'
 import { WalletTransaction } from './models/WalletTransaction'
 import { addQueue } from './mutations/addQueue'
+import { followUser } from './mutations/followUser'
 import { requestOtp } from './mutations/requestOtp'
 import { verifyOtp } from './mutations/verifyOtp'
 import { AuthPayload } from './payloads/AuthPayload'
+import { findUserById } from './queries/findUserById'
 import { getCountries } from './queries/getCountries'
 import { getLanguages } from './queries/getLanguages'
 import { me } from './queries/me'
@@ -25,10 +27,12 @@ export default [
   Wallet,
   WalletTransaction,
   me,
+  findUserById,
   getLanguages,
   getCountries,
   addQueue,
   requestOtp,
   verifyOtp,
   onQueueAdded,
+  followUser,
 ]

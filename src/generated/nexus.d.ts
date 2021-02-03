@@ -19,6 +19,15 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  UserWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: string | null; // String
+    mobile?: string | null; // String
+    username?: string | null; // String
+  }
+  WalletTransactionWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
 }
 
 export interface NexusGenEnums {
@@ -72,6 +81,7 @@ export interface NexusGenObjects {
     demo: boolean; // Boolean!
     dob: string; // String!
     email?: string | null; // String
+    fcm_token?: string | null; // String
     gender: NexusGenEnums['Gender']; // Gender!
     id: string; // String!
     influencer: boolean; // Boolean!
@@ -82,6 +92,7 @@ export interface NexusGenObjects {
     status: boolean; // Boolean!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
     username?: string | null; // String
+    version?: string | null; // String
   }
   Wallet: { // root type
     balance: number; // Float!
@@ -135,11 +146,13 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     addQueue: NexusGenRootTypes['Language'] | null; // Language
+    followUser: NexusGenRootTypes['User'] | null; // User
     requestOtp: string | null; // String
     verifyOtp: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
   }
   Query: { // field return type
     countries: NexusGenRootTypes['Country'] | null; // Country
+    findUserById: NexusGenRootTypes['User'] | null; // User
     languages: NexusGenRootTypes['Language'] | null; // Language
     me: NexusGenRootTypes['User'] | null; // User
   }
@@ -154,12 +167,15 @@ export interface NexusGenFieldTypes {
     admin: boolean; // Boolean!
     avatar: string | null; // String
     bio: string | null; // String
-    country: NexusGenRootTypes['Country'] | null; // Country
+    country: NexusGenRootTypes['Country']; // Country!
     country_id: string; // String!
     created_at: NexusGenScalars['DateTime']; // DateTime!
     demo: boolean; // Boolean!
     dob: string; // String!
     email: string | null; // String
+    fcm_token: string | null; // String
+    followers: NexusGenRootTypes['User'][]; // [User!]!
+    following: NexusGenRootTypes['User'][]; // [User!]!
     gender: NexusGenEnums['Gender']; // Gender!
     id: string; // String!
     influencer: boolean; // Boolean!
@@ -170,6 +186,7 @@ export interface NexusGenFieldTypes {
     status: boolean; // Boolean!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
     username: string | null; // String
+    version: string | null; // String
     wallet: NexusGenRootTypes['Wallet'] | null; // Wallet
   }
   Wallet: { // field return type
@@ -177,9 +194,9 @@ export interface NexusGenFieldTypes {
     created_at: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
-    user: NexusGenRootTypes['User'] | null; // User
+    user: NexusGenRootTypes['User']; // User!
     user_id: string; // String!
-    wallet_transactions: Array<NexusGenRootTypes['WalletTransaction'] | null> | null; // [WalletTransaction]
+    wallet_transactions: NexusGenRootTypes['WalletTransaction'][]; // [WalletTransaction!]!
   }
   WalletTransaction: { // field return type
     amount: number; // Float!
@@ -189,9 +206,9 @@ export interface NexusGenFieldTypes {
     status: NexusGenEnums['TransactionStatus'] | null; // TransactionStatus
     type: NexusGenEnums['TransactionType'] | null; // TransactionType
     updated_at: NexusGenScalars['DateTime']; // DateTime!
-    user: NexusGenRootTypes['User'] | null; // User
+    user: NexusGenRootTypes['User']; // User!
     user_id: string; // String!
-    wallet: NexusGenRootTypes['Wallet'] | null; // Wallet
+    wallet: NexusGenRootTypes['Wallet']; // Wallet!
     wallet_id: string; // String!
   }
 }
@@ -218,11 +235,13 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     addQueue: 'Language'
+    followUser: 'User'
     requestOtp: 'String'
     verifyOtp: 'AuthPayload'
   }
   Query: { // field return type name
     countries: 'Country'
+    findUserById: 'User'
     languages: 'Language'
     me: 'User'
   }
@@ -243,6 +262,9 @@ export interface NexusGenFieldTypeNames {
     demo: 'Boolean'
     dob: 'String'
     email: 'String'
+    fcm_token: 'String'
+    followers: 'User'
+    following: 'User'
     gender: 'Gender'
     id: 'String'
     influencer: 'Boolean'
@@ -253,6 +275,7 @@ export interface NexusGenFieldTypeNames {
     status: 'Boolean'
     updated_at: 'DateTime'
     username: 'String'
+    version: 'String'
     wallet: 'Wallet'
   }
   Wallet: { // field return type name
@@ -284,6 +307,9 @@ export interface NexusGenArgTypes {
     addQueue: { // args
       language_id: string; // ID!
     }
+    followUser: { // args
+      following_id: string; // String!
+    }
     requestOtp: { // args
       country_id: string; // ID!
       mobile: string; // String!
@@ -292,6 +318,33 @@ export interface NexusGenArgTypes {
       country_id: string; // ID!
       mobile: string; // String!
       otp: string; // String!
+    }
+  }
+  Query: {
+    findUserById: { // args
+      user_id: string; // String!
+    }
+  }
+  User: {
+    followers: { // args
+      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    following: { // args
+      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  Wallet: {
+    wallet_transactions: { // args
+      after?: NexusGenInputs['WalletTransactionWhereUniqueInput'] | null; // WalletTransactionWhereUniqueInput
+      before?: NexusGenInputs['WalletTransactionWhereUniqueInput'] | null; // WalletTransactionWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
     }
   }
 }
@@ -304,7 +357,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = keyof NexusGenEnums;
 

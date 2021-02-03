@@ -5,19 +5,10 @@ export const User = objectType({
   definition(t) {
     t.model.id()
     t.model.country_id()
-    t.field('country', {
-      type: 'Country',
-      resolve: async (root, args, { prisma }) => {
-        return await prisma.user.findFirst({ where: { id: root.id } }).country()
-      },
-    })
-    t.model.country_id()
-    t.field('wallet', {
-      type: 'Wallet',
-      resolve: async (root, args, { prisma }) => {
-        return await prisma.user.findFirst({ where: { id: root.id } }).wallet()
-      },
-    })
+    t.model.country()
+    t.model.wallet()
+    t.model.following()
+    t.model.followers()
     t.model.mobile()
     t.model.name()
     t.model.username()
@@ -31,11 +22,9 @@ export const User = objectType({
     t.model.influencer()
     t.model.demo()
     t.model.status()
-
     t.model.fcm_token()
     t.model.version()
     t.model.referral_code()
-
     t.model.created_at()
     t.model.updated_at()
   },

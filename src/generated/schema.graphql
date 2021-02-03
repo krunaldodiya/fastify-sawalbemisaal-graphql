@@ -34,12 +34,14 @@ type Language {
 
 type Mutation {
   addQueue(language_id: ID!): Language
+  followUser(following_id: String!): User
   requestOtp(country_id: ID!, mobile: String!): String
   verifyOtp(country_id: ID!, mobile: String!, otp: String!): AuthPayload
 }
 
 type Query {
   countries: Country
+  findUserById(user_id: String!): User
   languages: Language
   me: User
 }
@@ -68,12 +70,15 @@ type User {
   admin: Boolean!
   avatar: String
   bio: String
-  country: Country
+  country: Country!
   country_id: String!
   created_at: DateTime!
   demo: Boolean!
   dob: String!
   email: String
+  fcm_token: String
+  followers(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+  following(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
   gender: Gender!
   id: String!
   influencer: Boolean!
@@ -84,7 +89,15 @@ type User {
   status: Boolean!
   updated_at: DateTime!
   username: String
+  version: String
   wallet: Wallet
+}
+
+input UserWhereUniqueInput {
+  email: String
+  id: String
+  mobile: String
+  username: String
 }
 
 type Wallet {
@@ -92,9 +105,9 @@ type Wallet {
   created_at: DateTime!
   id: String!
   updated_at: DateTime!
-  user: User
+  user: User!
   user_id: String!
-  wallet_transactions: [WalletTransaction]
+  wallet_transactions(after: WalletTransactionWhereUniqueInput, before: WalletTransactionWhereUniqueInput, first: Int, last: Int): [WalletTransaction!]!
 }
 
 type WalletTransaction {
@@ -105,8 +118,12 @@ type WalletTransaction {
   status: TransactionStatus
   type: TransactionType
   updated_at: DateTime!
-  user: User
+  user: User!
   user_id: String!
-  wallet: Wallet
+  wallet: Wallet!
   wallet_id: String!
+}
+
+input WalletTransactionWhereUniqueInput {
+  id: String
 }

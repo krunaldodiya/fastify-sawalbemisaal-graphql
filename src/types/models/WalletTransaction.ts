@@ -14,23 +14,9 @@ export const WalletTransaction = objectType({
     t.field('meta', { type: TransactionMeta })
 
     t.model.user_id()
-    t.field('user', {
-      type: 'User',
-      resolve: async (root, args, { prisma }) => {
-        return await prisma.user.findFirst({
-          where: { id: root.user_id },
-        })
-      },
-    })
+    t.model.user()
     t.model.wallet_id()
-    t.field('wallet', {
-      type: 'Wallet',
-      resolve: async (root, args, { prisma }) => {
-        return await prisma.wallet.findFirst({
-          where: { id: root.wallet_id },
-        })
-      },
-    })
+    t.model.wallet()
     t.model.created_at()
     t.model.updated_at()
   },

@@ -1,6 +1,7 @@
 import { User } from '@prisma/client'
 import { prisma } from '../context'
 import { generatePin } from '../libs/generatePin'
+import { followAdmin } from '../queues/followAdmin'
 import { server } from '../server'
 
 export class UserService {
@@ -41,12 +42,27 @@ export class UserService {
       },
     })
 
+    followAdmin.add({ user_id: newUser.id })
+
     return this.authenticate(newUser)
   }
 
   async authenticate(user: User) {
     const token = server.jwt.sign({ id: user.id })
     return { token, user }
+  }
+
+  async followUser({
+    user_id,
+    following_id,
+  }: {
+    user_id: string
+    following_id: string
+  }) {
+    return await prisma.user.update({
+      where: { id: user_id },
+      data: { following: { connect: { id: following_id } } },
+    })
   }
 }
 

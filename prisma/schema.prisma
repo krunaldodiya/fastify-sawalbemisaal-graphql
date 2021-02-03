@@ -87,6 +87,9 @@ model User {
   wallet              Wallet?
   wallet_transactions WalletTransaction[]
 
+  following User[] @relation(name: "UserFollows", references: [id])
+  followers User[] @relation(name: "UserFollows", references: [id])
+
   @@map("users")
 }
 
@@ -108,6 +111,7 @@ model Country {
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
-  User User[]
+  user User[]
+
   @@map("countries")
 }
