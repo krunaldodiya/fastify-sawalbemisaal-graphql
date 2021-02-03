@@ -1,0 +1,5 @@
+on user created
+---------------------------
+    create topics
+    follow admin
+    add wallet points

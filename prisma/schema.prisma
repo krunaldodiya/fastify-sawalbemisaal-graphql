@@ -7,17 +7,85 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id         String   @id @default(uuid())
-  country_id String
-  mobile     String   @unique
-  name       String?
-  username   String?  @unique
-  email      String?  @unique
-  password   String?
-  country    Country  @relation(fields: [country_id], references: [id])
+enum TransactionType {
+  Deposit
+  Withdraw
+}
+
+enum TransactionStatus {
+  Success
+  Failed
+  Pending
+}
+
+enum Gender {
+  Male
+  Female
+  None
+}
+
+model WalletTransaction {
+  id     String            @id @default(uuid())
+  amount Float
+  type   TransactionType   @default(Deposit)
+  status TransactionStatus @default(Pending)
+  meta   Json
+
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
+
+  wallet    Wallet @relation(fields: [wallet_id], references: [id])
+  wallet_id String
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("wallet_transactions")
+}
+
+model Wallet {
+  id         String   @id @default(uuid())
+  balance    Float
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  wallet_transactions WalletTransaction[]
+
+  @@map("wallets")
+}
+
+model User {
+  id                 String  @id @default(uuid())
+  mobile             String  @unique
+  name               String?
+  username           String? @unique
+  email              String? @unique
+  password           String?
+  dob                String  @default("01-01-1990")
+  gender             Gender  @default(None)
+  avatar             String?
+  instagram_username String?
+  bio                String?
+  admin              Boolean @default(false)
+  influencer         Boolean @default(false)
+  demo               Boolean @default(false)
+  status             Boolean @default(false)
+
+  fcm_token     String?
+  version       String?
+  referral_code String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  country_id String
+  country    Country @relation(fields: [country_id], references: [id])
+
+  wallet              Wallet?
+  wallet_transactions WalletTransaction[]
 
   @@map("users")
 }

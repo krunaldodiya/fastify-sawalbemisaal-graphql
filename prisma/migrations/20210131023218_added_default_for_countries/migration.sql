@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "countries" ALTER COLUMN "updated_at" SET DEFAULT CURRENT_TIMESTAMP;
-
--- AlterTable
-ALTER TABLE "languages" ALTER COLUMN "updated_at" SET DEFAULT CURRENT_TIMESTAMP;

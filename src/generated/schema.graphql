@@ -18,6 +18,12 @@ type Country {
 
 scalar DateTime
 
+enum Gender {
+  Female
+  Male
+  None
+}
+
 type Language {
   created_at: DateTime!
   id: String!
@@ -42,15 +48,65 @@ type Subscription {
   onQueueAdded: Language
 }
 
+type TransactionMeta {
+  description: String
+  title: String
+}
+
+enum TransactionStatus {
+  Failed
+  Pending
+  Success
+}
+
+enum TransactionType {
+  Deposit
+  Withdraw
+}
+
 type User {
+  admin: Boolean!
+  avatar: String
+  bio: String
   country: Country
   country_id: String!
   created_at: DateTime!
+  demo: Boolean!
+  dob: String!
   email: String
+  gender: Gender!
   id: String!
+  influencer: Boolean!
+  instagram_username: String
   mobile: String!
   name: String
-  password: String
+  referral_code: String
+  status: Boolean!
   updated_at: DateTime!
   username: String
+  wallet: Wallet
+}
+
+type Wallet {
+  balance: Float!
+  created_at: DateTime!
+  id: String!
+  updated_at: DateTime!
+  user: User
+  user_id: String!
+  wallet_transactions: [WalletTransaction]
+}
+
+type WalletTransaction {
+  amount: Float!
+  created_at: DateTime!
+  id: String!
+  meta: TransactionMeta
+  status: TransactionStatus
+  type: TransactionType
+  updated_at: DateTime!
+  user: User
+  user_id: String!
+  wallet: Wallet
+  wallet_id: String!
 }

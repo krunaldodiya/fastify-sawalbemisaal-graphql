@@ -1,7 +1,10 @@
 import axios from 'axios'
 import { idArg, mutationField, nonNull, stringArg } from 'nexus'
 import { URLSearchParams } from 'url'
+import { generatePin } from '../../libs/generatePin'
+import { walletQueue } from '../../queues/wallet'
 import { server } from '../../server'
+import { userService } from '../../services/UserService'
 
 export const verifyOtp = mutationField('verifyOtp', {
   type: 'AuthPayload',
@@ -26,18 +29,12 @@ export const verifyOtp = mutationField('verifyOtp', {
       const response = await axios.get(url)
 
       if (response.data.type === 'success') {
-        const user = await prisma.user.upsert({
-          where: { mobile },
-          create: { mobile, country_id },
-          update: {},
-        })
-
-        const token = server.jwt.sign(user)
-        return { token, user }
+        return userService.createUser({ country_id, mobile })
       }
 
       return reply.code(500).send({ message: response.data.message })
     } catch (error) {
+      console.log(error)
       const data = error.toJSON()
       return reply.code(500).send({ message: data.message })
     }

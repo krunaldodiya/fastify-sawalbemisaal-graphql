@@ -22,6 +22,9 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  Gender: "Female" | "Male" | "None"
+  TransactionStatus: "Failed" | "Pending" | "Success"
+  TransactionType: "Deposit" | "Withdraw"
 }
 
 export interface NexusGenScalars {
@@ -56,17 +59,47 @@ export interface NexusGenObjects {
   Mutation: {};
   Query: {};
   Subscription: {};
+  TransactionMeta: { // root type
+    description?: string | null; // String
+    title?: string | null; // String
+  }
   User: { // root type
-    country?: NexusGenRootTypes['Country'] | null; // Country
+    admin: boolean; // Boolean!
+    avatar?: string | null; // String
+    bio?: string | null; // String
     country_id: string; // String!
     created_at: NexusGenScalars['DateTime']; // DateTime!
+    demo: boolean; // Boolean!
+    dob: string; // String!
     email?: string | null; // String
+    gender: NexusGenEnums['Gender']; // Gender!
     id: string; // String!
+    influencer: boolean; // Boolean!
+    instagram_username?: string | null; // String
     mobile: string; // String!
     name?: string | null; // String
-    password?: string | null; // String
+    referral_code?: string | null; // String
+    status: boolean; // Boolean!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
     username?: string | null; // String
+  }
+  Wallet: { // root type
+    balance: number; // Float!
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+    user_id: string; // String!
+  }
+  WalletTransaction: { // root type
+    amount: number; // Float!
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    meta?: NexusGenRootTypes['TransactionMeta'] | null; // TransactionMeta
+    status?: NexusGenEnums['TransactionStatus'] | null; // TransactionStatus
+    type?: NexusGenEnums['TransactionType'] | null; // TransactionType
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+    user_id: string; // String!
+    wallet_id: string; // String!
   }
 }
 
@@ -78,7 +111,7 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
   AuthPayload: { // field return type
@@ -113,17 +146,53 @@ export interface NexusGenFieldTypes {
   Subscription: { // field return type
     onQueueAdded: NexusGenRootTypes['Language'] | null; // Language
   }
+  TransactionMeta: { // field return type
+    description: string | null; // String
+    title: string | null; // String
+  }
   User: { // field return type
+    admin: boolean; // Boolean!
+    avatar: string | null; // String
+    bio: string | null; // String
     country: NexusGenRootTypes['Country'] | null; // Country
     country_id: string; // String!
     created_at: NexusGenScalars['DateTime']; // DateTime!
+    demo: boolean; // Boolean!
+    dob: string; // String!
     email: string | null; // String
+    gender: NexusGenEnums['Gender']; // Gender!
     id: string; // String!
+    influencer: boolean; // Boolean!
+    instagram_username: string | null; // String
     mobile: string; // String!
     name: string | null; // String
-    password: string | null; // String
+    referral_code: string | null; // String
+    status: boolean; // Boolean!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
     username: string | null; // String
+    wallet: NexusGenRootTypes['Wallet'] | null; // Wallet
+  }
+  Wallet: { // field return type
+    balance: number; // Float!
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+    user: NexusGenRootTypes['User'] | null; // User
+    user_id: string; // String!
+    wallet_transactions: Array<NexusGenRootTypes['WalletTransaction'] | null> | null; // [WalletTransaction]
+  }
+  WalletTransaction: { // field return type
+    amount: number; // Float!
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    meta: NexusGenRootTypes['TransactionMeta'] | null; // TransactionMeta
+    status: NexusGenEnums['TransactionStatus'] | null; // TransactionStatus
+    type: NexusGenEnums['TransactionType'] | null; // TransactionType
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+    user: NexusGenRootTypes['User'] | null; // User
+    user_id: string; // String!
+    wallet: NexusGenRootTypes['Wallet'] | null; // Wallet
+    wallet_id: string; // String!
   }
 }
 
@@ -160,17 +229,53 @@ export interface NexusGenFieldTypeNames {
   Subscription: { // field return type name
     onQueueAdded: 'Language'
   }
+  TransactionMeta: { // field return type name
+    description: 'String'
+    title: 'String'
+  }
   User: { // field return type name
+    admin: 'Boolean'
+    avatar: 'String'
+    bio: 'String'
     country: 'Country'
     country_id: 'String'
     created_at: 'DateTime'
+    demo: 'Boolean'
+    dob: 'String'
     email: 'String'
+    gender: 'Gender'
     id: 'String'
+    influencer: 'Boolean'
+    instagram_username: 'String'
     mobile: 'String'
     name: 'String'
-    password: 'String'
+    referral_code: 'String'
+    status: 'Boolean'
     updated_at: 'DateTime'
     username: 'String'
+    wallet: 'Wallet'
+  }
+  Wallet: { // field return type name
+    balance: 'Float'
+    created_at: 'DateTime'
+    id: 'String'
+    updated_at: 'DateTime'
+    user: 'User'
+    user_id: 'String'
+    wallet_transactions: 'WalletTransaction'
+  }
+  WalletTransaction: { // field return type name
+    amount: 'Float'
+    created_at: 'DateTime'
+    id: 'String'
+    meta: 'TransactionMeta'
+    status: 'TransactionStatus'
+    type: 'TransactionType'
+    updated_at: 'DateTime'
+    user: 'User'
+    user_id: 'String'
+    wallet: 'Wallet'
+    wallet_id: 'String'
   }
 }
 
@@ -201,7 +306,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
 export type NexusGenInterfaceNames = never;
 
