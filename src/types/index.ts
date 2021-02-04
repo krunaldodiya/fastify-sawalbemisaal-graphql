@@ -6,6 +6,7 @@ import { User } from './models/User'
 import { Wallet } from './models/Wallet'
 import { WalletTransaction } from './models/WalletTransaction'
 import { addQueue } from './mutations/addQueue'
+import { editProfile } from './mutations/editProfile'
 import { followUser } from './mutations/followUser'
 import { requestOtp } from './mutations/requestOtp'
 import { verifyOtp } from './mutations/verifyOtp'
@@ -39,4 +40,5 @@ export default [
   followUser,
   checkFollowStatus,
   FollowStatus,
+  editProfile,
 ]

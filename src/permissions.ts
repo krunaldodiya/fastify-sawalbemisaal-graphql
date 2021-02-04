@@ -15,5 +15,6 @@ export const permissions = shield({
   Mutation: {
     addQueue: isAuthenticated,
     followUser: isAuthenticated,
+    editProfile: isAuthenticated,
   },
 })

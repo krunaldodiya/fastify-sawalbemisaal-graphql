@@ -39,6 +39,7 @@ type Language {
 
 type Mutation {
   addQueue(language_id: ID!): Language
+  editProfile(name: String): User
   followUser(following_id: String!): User
   requestOtp(country_id: ID!, mobile: String!): String
   verifyOtp(country_id: ID!, mobile: String!, otp: String!): AuthPayload
@@ -46,9 +47,9 @@ type Mutation {
 
 type Query {
   checkFollowStatus(guest_id: String!): FollowStatus
-  countries: Country
+  countries: [Country]
   findUserById(user_id: String!): User
-  languages: Language
+  languages: [Language]
   me: User
 }
 

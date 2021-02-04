@@ -154,15 +154,16 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     addQueue: NexusGenRootTypes['Language'] | null; // Language
+    editProfile: NexusGenRootTypes['User'] | null; // User
     followUser: NexusGenRootTypes['User'] | null; // User
     requestOtp: string | null; // String
     verifyOtp: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
   }
   Query: { // field return type
     checkFollowStatus: NexusGenRootTypes['FollowStatus'] | null; // FollowStatus
-    countries: NexusGenRootTypes['Country'] | null; // Country
+    countries: Array<NexusGenRootTypes['Country'] | null> | null; // [Country]
     findUserById: NexusGenRootTypes['User'] | null; // User
-    languages: NexusGenRootTypes['Language'] | null; // Language
+    languages: Array<NexusGenRootTypes['Language'] | null> | null; // [Language]
     me: NexusGenRootTypes['User'] | null; // User
   }
   Subscription: { // field return type
@@ -249,6 +250,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     addQueue: 'Language'
+    editProfile: 'User'
     followUser: 'User'
     requestOtp: 'String'
     verifyOtp: 'AuthPayload'
@@ -322,6 +324,9 @@ export interface NexusGenArgTypes {
   Mutation: {
     addQueue: { // args
       language_id: string; // ID!
+    }
+    editProfile: { // args
+      name?: string | null; // String
     }
     followUser: { // args
       following_id: string; // String!
