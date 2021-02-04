@@ -57,6 +57,19 @@ model Wallet {
   @@map("wallets")
 }
 
+model Message {
+  id String @id @default(uuid())
+
+  receiver_id String
+  sender_id   String
+  message     String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("messages")
+}
+
 model User {
   id                 String  @id @default(uuid())
   mobile             String  @unique

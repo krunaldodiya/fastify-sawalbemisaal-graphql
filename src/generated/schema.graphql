@@ -37,9 +37,19 @@ type Language {
   updated_at: DateTime!
 }
 
+type Message {
+  created_at: DateTime!
+  id: String!
+  message: String!
+  receiver_id: String!
+  sender_id: String!
+  updated_at: DateTime!
+}
+
 type Mutation {
+  addMessage(buddy_id: ID!, message: ID!): Message
   addQueue(language_id: ID!): Language
-  editProfile(name: String): User
+  editProfile(email: String, name: String): User
   followUser(following_id: String!): User
   requestOtp(country_id: ID!, mobile: String!): String
   verifyOtp(country_id: ID!, mobile: String!, otp: String!): AuthPayload
@@ -51,9 +61,11 @@ type Query {
   findUserById(user_id: String!): User
   languages: [Language]
   me: User
+  messages(buddy_id: String!): [Message]
 }
 
 type Subscription {
+  onMessageAdded: Message
   onQueueAdded: Language
 }
 

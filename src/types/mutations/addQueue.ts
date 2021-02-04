@@ -1,5 +1,5 @@
 import { idArg, mutationField, nonNull } from 'nexus'
-import { videoQueue } from '../../queues/video'
+import { videoQueue } from '../../queues/videoQueue'
 
 export const addQueue = mutationField('addQueue', {
   type: 'Language',

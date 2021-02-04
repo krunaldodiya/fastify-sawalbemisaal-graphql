@@ -69,6 +69,14 @@ export interface NexusGenObjects {
     nickname: string; // String!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
   }
+  Message: { // root type
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    message: string; // String!
+    receiver_id: string; // String!
+    sender_id: string; // String!
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+  }
   Mutation: {};
   Query: {};
   Subscription: {};
@@ -152,7 +160,16 @@ export interface NexusGenFieldTypes {
     nickname: string; // String!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
   }
+  Message: { // field return type
+    created_at: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    message: string; // String!
+    receiver_id: string; // String!
+    sender_id: string; // String!
+    updated_at: NexusGenScalars['DateTime']; // DateTime!
+  }
   Mutation: { // field return type
+    addMessage: NexusGenRootTypes['Message'] | null; // Message
     addQueue: NexusGenRootTypes['Language'] | null; // Language
     editProfile: NexusGenRootTypes['User'] | null; // User
     followUser: NexusGenRootTypes['User'] | null; // User
@@ -165,8 +182,10 @@ export interface NexusGenFieldTypes {
     findUserById: NexusGenRootTypes['User'] | null; // User
     languages: Array<NexusGenRootTypes['Language'] | null> | null; // [Language]
     me: NexusGenRootTypes['User'] | null; // User
+    messages: Array<NexusGenRootTypes['Message'] | null> | null; // [Message]
   }
   Subscription: { // field return type
+    onMessageAdded: NexusGenRootTypes['Message'] | null; // Message
     onQueueAdded: NexusGenRootTypes['Language'] | null; // Language
   }
   TransactionMeta: { // field return type
@@ -248,7 +267,16 @@ export interface NexusGenFieldTypeNames {
     nickname: 'String'
     updated_at: 'DateTime'
   }
+  Message: { // field return type name
+    created_at: 'DateTime'
+    id: 'String'
+    message: 'String'
+    receiver_id: 'String'
+    sender_id: 'String'
+    updated_at: 'DateTime'
+  }
   Mutation: { // field return type name
+    addMessage: 'Message'
     addQueue: 'Language'
     editProfile: 'User'
     followUser: 'User'
@@ -261,8 +289,10 @@ export interface NexusGenFieldTypeNames {
     findUserById: 'User'
     languages: 'Language'
     me: 'User'
+    messages: 'Message'
   }
   Subscription: { // field return type name
+    onMessageAdded: 'Message'
     onQueueAdded: 'Language'
   }
   TransactionMeta: { // field return type name
@@ -322,10 +352,15 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    addMessage: { // args
+      buddy_id: string; // ID!
+      message: string; // ID!
+    }
     addQueue: { // args
       language_id: string; // ID!
     }
     editProfile: { // args
+      email?: string | null; // String
       name?: string | null; // String
     }
     followUser: { // args
@@ -347,6 +382,9 @@ export interface NexusGenArgTypes {
     }
     findUserById: { // args
       user_id: string; // String!
+    }
+    messages: { // args
+      buddy_id: string; // String!
     }
   }
   User: {
