@@ -16,9 +16,9 @@ import { AuthPayload } from './payloads/AuthPayload'
 import { FollowStatus } from './payloads/FollowStatus'
 import { checkFollowStatus } from './queries/checkFollowStatus'
 import { findUserById } from './queries/findUserById'
-import { getCountries } from './queries/getCountries'
-import { getLanguages } from './queries/getLanguages'
-import { getMessages } from './queries/getMessages'
+import { countries } from './queries/countries'
+import { languages } from './queries/languages'
+import { messages } from './queries/messages'
 import { me } from './queries/me'
 import { onMessageAdded } from './subscriptions/onMessageAdded'
 import { onQueueAdded } from './subscriptions/onQueueAdded'
@@ -36,8 +36,8 @@ export default [
   WalletTransaction,
   me,
   findUserById,
-  getLanguages,
-  getCountries,
+  languages,
+  countries,
   addQueue,
   requestOtp,
   verifyOtp,
@@ -48,5 +48,5 @@ export default [
   FollowStatus,
   editProfile,
   addMessage,
-  getMessages,
+  messages,
 ]

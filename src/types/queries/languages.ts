@@ -1,6 +1,6 @@
 import { queryField } from 'nexus'
 
-export const getLanguages = queryField((t) =>
+export const languages = queryField((t) =>
   t.list.field('languages', {
     type: 'Language',
     resolve: async (parent, args, { prisma }) => {

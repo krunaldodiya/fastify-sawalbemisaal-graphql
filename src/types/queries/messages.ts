@@ -1,6 +1,6 @@
 import { nonNull, queryField, stringArg } from 'nexus'
 
-export const getMessages = queryField((t) => {
+export const messages = queryField((t) => {
   t.list.field('messages', {
     type: 'Message',
     args: { buddy_id: nonNull(stringArg()) },
