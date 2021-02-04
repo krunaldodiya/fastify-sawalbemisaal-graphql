@@ -58,6 +58,10 @@ export interface NexusGenObjects {
     shortname: string; // String!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
   }
+  FollowStatus: { // root type
+    is_follower?: boolean | null; // Boolean
+    is_following?: boolean | null; // Boolean
+  }
   Language: { // root type
     created_at: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
@@ -137,6 +141,10 @@ export interface NexusGenFieldTypes {
     shortname: string; // String!
     updated_at: NexusGenScalars['DateTime']; // DateTime!
   }
+  FollowStatus: { // field return type
+    is_follower: boolean | null; // Boolean
+    is_following: boolean | null; // Boolean
+  }
   Language: { // field return type
     created_at: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
@@ -151,6 +159,7 @@ export interface NexusGenFieldTypes {
     verifyOtp: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
   }
   Query: { // field return type
+    checkFollowStatus: NexusGenRootTypes['FollowStatus'] | null; // FollowStatus
     countries: NexusGenRootTypes['Country'] | null; // Country
     findUserById: NexusGenRootTypes['User'] | null; // User
     languages: NexusGenRootTypes['Language'] | null; // Language
@@ -174,6 +183,7 @@ export interface NexusGenFieldTypes {
     dob: string; // String!
     email: string | null; // String
     fcm_token: string | null; // String
+    follow_status: NexusGenRootTypes['FollowStatus'] | null; // FollowStatus
     followers: NexusGenRootTypes['User'][]; // [User!]!
     following: NexusGenRootTypes['User'][]; // [User!]!
     gender: NexusGenEnums['Gender']; // Gender!
@@ -226,6 +236,10 @@ export interface NexusGenFieldTypeNames {
     shortname: 'String'
     updated_at: 'DateTime'
   }
+  FollowStatus: { // field return type name
+    is_follower: 'Boolean'
+    is_following: 'Boolean'
+  }
   Language: { // field return type name
     created_at: 'DateTime'
     id: 'String'
@@ -240,6 +254,7 @@ export interface NexusGenFieldTypeNames {
     verifyOtp: 'AuthPayload'
   }
   Query: { // field return type name
+    checkFollowStatus: 'FollowStatus'
     countries: 'Country'
     findUserById: 'User'
     languages: 'Language'
@@ -263,6 +278,7 @@ export interface NexusGenFieldTypeNames {
     dob: 'String'
     email: 'String'
     fcm_token: 'String'
+    follow_status: 'FollowStatus'
     followers: 'User'
     following: 'User'
     gender: 'Gender'
@@ -321,6 +337,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    checkFollowStatus: { // args
+      guest_id: string; // String!
+    }
     findUserById: { // args
       user_id: string; // String!
     }

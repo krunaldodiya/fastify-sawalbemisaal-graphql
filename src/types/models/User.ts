@@ -1,4 +1,5 @@
 import { objectType } from 'nexus'
+import { userService } from '../../services/UserService'
 
 export const User = objectType({
   name: 'User',
@@ -25,6 +26,14 @@ export const User = objectType({
     t.model.fcm_token()
     t.model.version()
     t.model.referral_code()
+
+    t.field('follow_status', {
+      type: 'FollowStatus',
+      resolve: async (root, args, { prisma, user }) => {
+        return userService.checkFollowStatus(root.id, user.id)
+      },
+    })
+
     t.model.created_at()
     t.model.updated_at()
   },

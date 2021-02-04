@@ -18,6 +18,11 @@ type Country {
 
 scalar DateTime
 
+type FollowStatus {
+  is_follower: Boolean
+  is_following: Boolean
+}
+
 enum Gender {
   Female
   Male
@@ -40,6 +45,7 @@ type Mutation {
 }
 
 type Query {
+  checkFollowStatus(guest_id: String!): FollowStatus
   countries: Country
   findUserById(user_id: String!): User
   languages: Language
@@ -77,6 +83,7 @@ type User {
   dob: String!
   email: String
   fcm_token: String
+  follow_status: FollowStatus
   followers(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
   following(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
   gender: Gender!

@@ -10,6 +10,8 @@ import { followUser } from './mutations/followUser'
 import { requestOtp } from './mutations/requestOtp'
 import { verifyOtp } from './mutations/verifyOtp'
 import { AuthPayload } from './payloads/AuthPayload'
+import { FollowStatus } from './payloads/FollowStatus'
+import { checkFollowStatus } from './queries/checkFollowStatus'
 import { findUserById } from './queries/findUserById'
 import { getCountries } from './queries/getCountries'
 import { getLanguages } from './queries/getLanguages'
@@ -35,4 +37,6 @@ export default [
   verifyOtp,
   onQueueAdded,
   followUser,
+  checkFollowStatus,
+  FollowStatus,
 ]

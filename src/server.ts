@@ -1,4 +1,5 @@
 import Fastify, { FastifyInstance } from 'fastify'
+import fastifyCors from 'fastify-cors'
 import fastifyJWT from 'fastify-jwt'
 import { IncomingMessage, Server, ServerResponse } from 'http'
 import mercurius from 'mercurius'
@@ -10,6 +11,8 @@ export const server: FastifyInstance<
   IncomingMessage,
   ServerResponse
 > = Fastify({})
+
+server.register(fastifyCors)
 
 server.register(fastifyJWT, {
   secret: process.env.JWT_SECRET || 'secret',
