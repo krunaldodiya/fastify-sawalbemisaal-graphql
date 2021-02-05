@@ -6,6 +6,7 @@ import mercurius from 'mercurius'
 import pointOfView from 'point-of-view'
 import pug from 'pug'
 import { createContext } from './context'
+import { getUser } from './libs/helpers'
 import { routes } from './routes'
 import { schemaWithMiddleware } from './schema'
 
@@ -30,7 +31,21 @@ server.register(mercurius, {
   context: createContext,
   path: '/',
   graphiql: 'playground',
-  subscription: true,
+  subscription: {
+    onConnect: async ({ type, payload }) => {
+      if (type === 'connection_init' && payload['Authorization']) {
+        const token = payload['Authorization'].slice(7)
+
+        return {
+          user: server.jwt.verify(token),
+        }
+      }
+
+      return {
+        user: null,
+      }
+    },
+  },
 })
 
 const start = async () => {

@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { PubSub } from 'mercurius'
 import { getUser } from './libs/helpers'
 
 export const prisma = new PrismaClient()
@@ -10,7 +9,6 @@ export interface Context {
   request: FastifyRequest
   reply: FastifyReply
   prisma: PrismaClient
-  pubsub: PubSub
 }
 
 export const createContext = async (
