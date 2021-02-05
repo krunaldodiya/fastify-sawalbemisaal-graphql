@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { idArg, mutationField, nonNull, stringArg } from 'nexus'
+import { mutationField, nonNull, stringArg } from 'nexus'
 import { URLSearchParams } from 'url'
 import { userService } from '../../services/UserService'
 
 export const verifyOtp = mutationField('verifyOtp', {
   type: 'AuthPayload',
   args: {
-    country_id: nonNull(idArg()),
+    country_id: nonNull(stringArg()),
     mobile: nonNull(stringArg()),
     otp: nonNull(stringArg()),
   },

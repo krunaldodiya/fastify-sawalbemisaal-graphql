@@ -355,11 +355,11 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Mutation: {
     addMessage: { // args
-      buddy_id: string; // ID!
-      message: string; // ID!
+      buddy_id: string; // String!
+      message: string; // String!
     }
     addQueue: { // args
-      language_id: string; // ID!
+      language_id: string; // String!
     }
     editProfile: { // args
       dob: string; // String!
@@ -372,11 +372,11 @@ export interface NexusGenArgTypes {
       following_id: string; // String!
     }
     requestOtp: { // args
-      country_id: string; // ID!
+      country_id: string; // String!
       mobile: string; // String!
     }
     verifyOtp: { // args
-      country_id: string; // ID!
+      country_id: string; // String!
       mobile: string; // String!
       otp: string; // String!
     }

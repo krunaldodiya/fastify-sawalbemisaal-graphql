@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { idArg, mutationField, nonNull, stringArg } from 'nexus'
+import { mutationField, nonNull, stringArg } from 'nexus'
 import { URLSearchParams } from 'url'
 
 const otp = (Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000).toString()
 
 export const requestOtp = mutationField('requestOtp', {
   type: 'String',
-  args: { country_id: nonNull(idArg()), mobile: nonNull(stringArg()) },
+  args: { country_id: nonNull(stringArg()), mobile: nonNull(stringArg()) },
   resolve: async (parent, { country_id, mobile }, { reply, prisma }) => {
     try {
       if (process.env.NODE_ENV !== 'development') {

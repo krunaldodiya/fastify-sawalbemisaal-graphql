@@ -47,12 +47,12 @@ type Message {
 }
 
 type Mutation {
-  addMessage(buddy_id: ID!, message: ID!): Message
-  addQueue(language_id: ID!): Language
+  addMessage(buddy_id: String!, message: String!): Message
+  addQueue(language_id: String!): Language
   editProfile(dob: String!, email: String!, gender: Gender!, name: String!, username: String!): User
   followUser(following_id: String!): User
-  requestOtp(country_id: ID!, mobile: String!): String
-  verifyOtp(country_id: ID!, mobile: String!, otp: String!): AuthPayload
+  requestOtp(country_id: String!, mobile: String!): String
+  verifyOtp(country_id: String!, mobile: String!, otp: String!): AuthPayload
 }
 
 type Query {

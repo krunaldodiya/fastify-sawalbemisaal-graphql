@@ -17,7 +17,7 @@ followAdmin.process(async (job, done) => {
 
     userService.followUser({ user_id, guest_id: admin.id })
   } catch (error) {
-    console.log(error)
+    console.log('error', error)
   }
 
   done()

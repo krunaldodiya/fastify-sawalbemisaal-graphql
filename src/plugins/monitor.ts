@@ -9,7 +9,6 @@ export async function monitorGraph(
   }
 
   fastify.addHook('onRequest', (request, reply, done) => {
-    console.log('hello')
     done()
   })
 }

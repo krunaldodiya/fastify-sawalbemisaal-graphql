@@ -1,8 +1,8 @@
-import { idArg, mutationField, nonNull } from 'nexus'
+import { mutationField, nonNull, stringArg } from 'nexus'
 
 export const addMessage = mutationField('addMessage', {
   type: 'Message',
-  args: { buddy_id: nonNull(idArg()), message: nonNull(idArg()) },
+  args: { buddy_id: nonNull(stringArg()), message: nonNull(stringArg()) },
   resolve: async (parent, { buddy_id, message }, { prisma, user, pubsub }) => {
     const newMessage = await prisma.message.create({
       data: {
