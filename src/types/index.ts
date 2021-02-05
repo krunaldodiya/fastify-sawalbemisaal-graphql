@@ -23,9 +23,11 @@ import { me } from './queries/me'
 import { onMessageAdded } from './subscriptions/onMessageAdded'
 import { onQueueAdded } from './subscriptions/onQueueAdded'
 import { searchUsers } from './queries/searchUsers'
+import { Cursor } from './inputs/Cursor'
 
 export default [
   AuthPayload,
+  Cursor,
   TransactionType,
   TransactionStatus,
   TransactionMeta,

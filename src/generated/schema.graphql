@@ -16,6 +16,10 @@ type Country {
   updated_at: DateTime!
 }
 
+input Cursor {
+  id: String!
+}
+
 scalar DateTime
 
 type FollowStatus {
@@ -61,7 +65,7 @@ type Query {
   findUserById(user_id: String!): User
   languages: [Language]
   me: User
-  messages(buddy_id: String!): [Message]
+  messages(buddy_id: String!, cursor: Cursor, limit: Int!): [Message]
   searchUsers(keywords: String!): [User]
 }
 

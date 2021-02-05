@@ -19,6 +19,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  Cursor: { // input type
+    id: string; // String!
+  }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
     id?: string | null; // String
@@ -390,6 +393,8 @@ export interface NexusGenArgTypes {
     }
     messages: { // args
       buddy_id: string; // String!
+      cursor?: NexusGenInputs['Cursor'] | null; // Cursor
+      limit: number; // Int!
     }
     searchUsers: { // args
       keywords: string; // String!
