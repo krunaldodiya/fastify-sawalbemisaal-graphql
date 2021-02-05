@@ -3,7 +3,10 @@ import fastifyCors from 'fastify-cors'
 import fastifyJWT from 'fastify-jwt'
 import { IncomingMessage, Server, ServerResponse } from 'http'
 import mercurius from 'mercurius'
+import pointOfView from 'point-of-view'
+import pug from 'pug'
 import { createContext } from './context'
+import { routes } from './routes'
 import { schemaWithMiddleware } from './schema'
 
 export const server: FastifyInstance<
@@ -11,6 +14,10 @@ export const server: FastifyInstance<
   IncomingMessage,
   ServerResponse
 > = Fastify({})
+
+server.register(pointOfView, { engine: { pug }, templates: 'templates' })
+
+server.register(routes)
 
 server.register(fastifyCors)
 
