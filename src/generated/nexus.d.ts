@@ -183,6 +183,7 @@ export interface NexusGenFieldTypes {
     languages: Array<NexusGenRootTypes['Language'] | null> | null; // [Language]
     me: NexusGenRootTypes['User'] | null; // User
     messages: Array<NexusGenRootTypes['Message'] | null> | null; // [Message]
+    searchUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   Subscription: { // field return type
     onMessageAdded: NexusGenRootTypes['Message'] | null; // Message
@@ -290,6 +291,7 @@ export interface NexusGenFieldTypeNames {
     languages: 'Language'
     me: 'User'
     messages: 'Message'
+    searchUsers: 'User'
   }
   Subscription: { // field return type name
     onMessageAdded: 'Message'
@@ -360,8 +362,11 @@ export interface NexusGenArgTypes {
       language_id: string; // ID!
     }
     editProfile: { // args
-      email?: string | null; // String
-      name?: string | null; // String
+      dob: string; // String!
+      email: string; // String!
+      gender: NexusGenEnums['Gender']; // Gender!
+      name: string; // String!
+      username: string; // String!
     }
     followUser: { // args
       following_id: string; // String!
@@ -385,6 +390,9 @@ export interface NexusGenArgTypes {
     }
     messages: { // args
       buddy_id: string; // String!
+    }
+    searchUsers: { // args
+      keywords: string; // String!
     }
   }
   User: {

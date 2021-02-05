@@ -22,6 +22,7 @@ import { messages } from './queries/messages'
 import { me } from './queries/me'
 import { onMessageAdded } from './subscriptions/onMessageAdded'
 import { onQueueAdded } from './subscriptions/onQueueAdded'
+import { searchUsers } from './queries/searchUsers'
 
 export default [
   AuthPayload,
@@ -49,4 +50,5 @@ export default [
   editProfile,
   addMessage,
   messages,
+  searchUsers,
 ]

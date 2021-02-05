@@ -49,7 +49,7 @@ type Message {
 type Mutation {
   addMessage(buddy_id: ID!, message: ID!): Message
   addQueue(language_id: ID!): Language
-  editProfile(email: String, name: String): User
+  editProfile(dob: String!, email: String!, gender: Gender!, name: String!, username: String!): User
   followUser(following_id: String!): User
   requestOtp(country_id: ID!, mobile: String!): String
   verifyOtp(country_id: ID!, mobile: String!, otp: String!): AuthPayload
@@ -62,6 +62,7 @@ type Query {
   languages: [Language]
   me: User
   messages(buddy_id: String!): [Message]
+  searchUsers(keywords: String!): [User]
 }
 
 type Subscription {

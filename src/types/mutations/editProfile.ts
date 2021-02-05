@@ -1,16 +1,25 @@
-import { mutationField, stringArg } from 'nexus'
+import { arg, mutationField, nonNull, stringArg } from 'nexus'
 
 export const editProfile = mutationField('editProfile', {
   type: 'User',
-  args: { name: stringArg(), email: stringArg() },
-  resolve: async (parent, { name, email }, { prisma, user, reply }) => {
+  args: {
+    name: nonNull(stringArg()),
+    email: nonNull(stringArg()),
+    username: nonNull(stringArg()),
+    gender: nonNull(arg({ type: 'Gender' })),
+    dob: nonNull(stringArg()),
+  },
+  resolve: async (
+    parent,
+    { name, email, username, gender, dob },
+    { prisma, user, reply },
+  ) => {
     try {
       return await prisma.user.update({
         where: { id: user.id },
-        data: { name, email, status: true },
+        data: { name, email, username, gender, dob, status: true },
       })
     } catch (error) {
-      console.log(error, 'error')
       const data = error.toJSON()
 
       return reply.code(500).send({ message: data.message })
