@@ -20,6 +20,7 @@ export const permissions = shield({
     editProfile: isAuthenticated,
   },
   Subscription: {
+    onQueueAdded: isAuthenticated,
     onMessageAdded: isAuthenticated,
   },
 })

@@ -56,6 +56,7 @@ export class UserService {
 
   async authenticate(user: User) {
     const token = server.jwt.sign({ id: user.id })
+
     return { token, user }
   }
 
