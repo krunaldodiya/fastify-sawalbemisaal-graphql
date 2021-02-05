@@ -12,6 +12,7 @@ export const permissions = shield({
     checkFollowStatus: isAuthenticated,
     findUserById: isAuthenticated,
     messages: isAuthenticated,
+    searchUsers: isAuthenticated,
   },
   Mutation: {
     addQueue: isAuthenticated,

@@ -6,7 +6,10 @@ export const followUser = mutationField('followUser', {
   args: { following_id: nonNull(stringArg()) },
   resolve: async (parent, { following_id }, { prisma, user, reply }) => {
     try {
-      return userService.followUser({ user_id: user.id, following_id })
+      return userService.followUser({
+        user_id: user.id,
+        guest_id: following_id,
+      })
     } catch (error) {
       const data = error.toJSON()
 

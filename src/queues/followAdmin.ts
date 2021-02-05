@@ -15,7 +15,7 @@ followAdmin.process(async (job, done) => {
       rejectOnNotFound: true,
     })
 
-    userService.followUser({ user_id, following_id: admin.id })
+    userService.followUser({ user_id, guest_id: admin.id })
   } catch (error) {
     console.log(error)
   }

@@ -84,14 +84,25 @@ export class UserService {
 
   async followUser({
     user_id,
-    following_id,
+    guest_id,
   }: {
     user_id: string
-    following_id: string
+    guest_id: string
   }) {
-    return await prisma.user.update({
+    const { is_following } = await this.checkFollowStatus(guest_id, user_id)
+
+    await prisma.user.update({
       where: { id: user_id },
-      data: { following: { connect: { id: following_id } } },
+      data: {
+        following: is_following
+          ? { disconnect: { id: guest_id } }
+          : { connect: { id: guest_id } },
+      },
+    })
+
+    return await prisma.user.findFirst({
+      rejectOnNotFound: true,
+      where: { id: guest_id },
     })
   }
 }
