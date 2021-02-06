@@ -1,12 +1,12 @@
 import Fastify, { FastifyInstance } from 'fastify'
 import fastifyCors from 'fastify-cors'
 import fastifyJWT from 'fastify-jwt'
+import multer from 'fastify-multer'
 import { IncomingMessage, Server, ServerResponse } from 'http'
 import mercurius from 'mercurius'
 import pointOfView from 'point-of-view'
 import pug from 'pug'
 import { createContext } from './context'
-import { getUser } from './libs/helpers'
 import { routes } from './routes'
 import { schemaWithMiddleware } from './schema'
 
@@ -15,6 +15,8 @@ export const server: FastifyInstance<
   IncomingMessage,
   ServerResponse
 > = Fastify({})
+
+server.register(multer.contentParser)
 
 server.register(pointOfView, { engine: { pug }, templates: 'templates' })
 
